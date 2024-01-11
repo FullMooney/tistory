@@ -18,7 +18,7 @@ import com.dev.demo.domain.SampleVO;
 public class LogbookTestController {
     
     @PostMapping("/logging-access-log")
-    public ResponseEntity<List<SampleVO>> postMethodName(@RequestBody SampleVO vo) {
+    public ResponseEntity<List<SampleVO>> loggingAccessLog(@RequestBody SampleVO vo) {
         
         List<SampleVO> listVO = new ArrayList<>();
         
