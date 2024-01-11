@@ -1,4 +1,4 @@
-package com.dev.log.domain;
+package com.dev.demo.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

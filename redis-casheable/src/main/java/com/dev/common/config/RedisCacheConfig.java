@@ -31,32 +31,12 @@ import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * [클래스 한글명]
- *
- * <pre>
- * [클래스 개요]
- * </pre>
- * @author "user name"
- * @history
- * "user name"   2023. 5. 16.  [변경내용상세 기술]
-*/
-/**
- * [클래스 한글명]
- *
- * <pre>
- * [클래스 개요]
- * </pre>
- * @author "user name"
- * @history
- * "user name"   2023. 5. 17.  [변경내용상세 기술]
-*/
 @Slf4j
 @EnableCaching
 @Configuration
 public class RedisCacheConfig extends CachingConfigurerSupport {
 
-    public static final String MESSAGE = "MESSAGE";
+    public static final String CKEY = "CKEY";
 
     private final ObjectMapper objectMapper;
     private final RedisConnectionFactory redisConnectionFactory;
@@ -95,7 +75,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
             return RedisCacheManager.RedisCacheManagerBuilder
                     .fromConnectionFactory(redisConnectionFactory)
                     .cacheDefaults(redisCacheConfiguration)
-                    .withInitialCacheConfigurations(hroConfigurationMap())
+		    .withInitialCacheConfigurations(comConfigurationMap())
                     .build();
         } catch(Exception e) {
             log.error("redisCacheManager create Exception", e);
@@ -120,28 +100,14 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
                 ;
     }
 
-    private Map<String, RedisCacheConfiguration> hroConfigurationMap() {
+    private Map<String, RedisCacheConfiguration> comConfigurationMap() {
         Map<String, RedisCacheConfiguration> map = new TreeMap<>();
 
-        map.put(MESSAGE, forJsonConfig().entryTtl(Duration.ofHours(1L)));
+	map.put(CKEY, forJsonConfig().entryTtl(Duration.ofSeconds(60)));
 
         return map;
     }
 
-    /**
-     * 에러 핸들러
-     *
-     * <pre>
-     * @Cacheable, @CacheEvict annotation 사용시 redis 오류 발생시 exception handling하기 위해
-     * exception handler 등록 메소드
-     * </pre>
-     *
-     * @return
-     * @algorithm
-     * <pre>
-     * [처리로직 설명]
-     * </pre>
-     */
     @Override
     public CacheErrorHandler errorHandler() {
 	return new CacheExceptionHandler();
