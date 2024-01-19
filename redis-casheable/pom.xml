@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.dev</groupId>
-	<artifactId>log</artifactId>
+	<artifactId>supermoon</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>log-config</name>
-	<description>springboot 2.7 log conifg</description>
+	<name>supermoon</name>
+	<description>springboot 2.7 example</description>
 	<properties>
 		<!-- framework version -->
 		<java.version>11</java.version>
