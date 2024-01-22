@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+
+<configuration>	
+	
+	<conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+
+	<springProperty scope="context" name="SPRING_APP_NAME"      source="spring.application.name" />
+    <springProperty scope="context" name="LOGS_ABSOLUTE_PATH" source="logs.absolute.path"      />
+    <springProperty scope="context" name="LOGS_FILE_NAME"     source="logs.name"               />
+    <springProperty scope="context" name="LOGS_LEVEL_ROOT"      source="logs.level.root" default="DEBUG" />
+    <springProperty scope="context" name="LOGS_LEVEL_COM"       source="logs.level.com"  default="DEBUG" />
+
+    <property name="LOGS_FILE_PATTERN"    value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} [%L]-[${SPRING_APP_NAME:-},%X{traceId:-}]-%msg%n" />
+    <property name="LOGS_CONSOLE_PATTERN" value="%d{yyyyMMdd HH:mm:ss.SSS} [%thread] %highlight(%-3level) %clr(%logger{35}) [%L]-[%boldBlue(${SPRING_APP_NAME:-}),%cyan(%X{traceId:-})]-%msg%n" />
+
+
+	<!-- Console Appenders -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+	        <pattern>${LOGS_CONSOLE_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+    
+    <!-- Access Log Appenders -->
+    <appender name="ACCESS_FILE_ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_ABSOLUTE_PATH}/${LOGS_FILE_NAME}-access.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>${LOGS_FILE_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_ABSOLUTE_PATH}/${LOGS_FILE_NAME}-access.%d{yyyy-MM-dd}.%i.log</fileNamePattern>      
+            <timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+               <!-- or whenever the file size reaches 100MB -->
+               <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    
+ 	<!-- Access Loggers -->
+ 	<logger name="com.dev.log.common.log.AccessLogWriter" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    
+ 	<!-- Biz, Error Loggers -->
+    <logger name="jdbc.sqltiming" level="${LOGS_LEVEL_COM}" additivity="false" >
+        <appender-ref ref="STDOUT" />
+    </logger>    
+    <logger name="jdbc.resultsettable" level="${LOGS_LEVEL_COM}" additivity="false">
+        <appender-ref ref="STDOUT" />
+	</logger>
+    <logger name="com.dev" level="${LOGS_LEVEL_COM}" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <!-- Framework Loggers -->
+    <logger name="org.springframework.core" level="INFO" additivity="false">
+        <springProfile name="!local">
+            <appender-ref ref="STDOUT" />
+        </springProfile>
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.springframework.beans" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.springframework.context" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.springframework.web" level="INFO" additivity="false">
+       <appender-ref ref="STDOUT" />
+    </logger>
+	
+	<logger name="org.springframework.web.filter" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    
+    <logger name="org.zalando.logbook" level="TRACE" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+
+    <!-- SQL log -->
+    <logger name="jdbc"                level="OFF"  additivity="false" />
+    <logger name="jdbc.audit"          level="OFF"  additivity="false" />
+    <logger name="jdbc.connection"     level="OFF"  additivity="false" />
+    <logger name="jdbc.resultset"      level="OFF"  additivity="false" />
+    <logger name="jdbc.sqlonly"        level="OFF"  additivity="false" />
+
+	<root level="${LOGS_LEVEL_ROOT}">
+		<appender-ref ref="STDOUT" />	
+	</root>
+
+</configuration>
+
