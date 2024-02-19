@@ -15,8 +15,8 @@ import com.dev.log.domain.SampleVO;
 @RequestMapping("/api/aspects")
 public class AspectTestController {
     
-    @PostMapping("/logging-access-log")
-    public ResponseEntity<ResponseVO> postMethodName(@RequestBody SampleVO vo) {
+    @PostMapping("/test-header-aspect")
+    public ResponseEntity<ResponseVO> testHeaderAspect(@RequestBody SampleVO vo) {
         
         vo.getHeader().setTxTime(System.currentTimeMillis());
 

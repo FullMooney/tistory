@@ -35,17 +35,17 @@ public class HeaderAspect {
                 if(ansVO.getHeader() == null && !ObjectUtils.isEmpty(args)) { //응답 header가 null인 경우
                     for(Object arg : args) {
                         if(arg instanceof BaseVO) {
-                            BaseVO ivo = (BaseVO)arg;
+                            BaseVO ivo = (BaseVO)arg; //BaseVO를 상속 받은 경우 
 
-                            HeaderVO ivoHeader = ivo.getHeader();
-                            ansVO.setHeader(ivoHeader);
+                            HeaderVO ivoHeader = ivo.getHeader(); //request body 의 header 
+                            ansVO.setHeader(ivoHeader); // response body의 header에 set
 
                             break;
                         }
                     }
                 }
             } else {
-                log.warn("body is not instance of BaseVO]");
+                log.warn("body is not instance of BaseVO");
             }
 
         }
