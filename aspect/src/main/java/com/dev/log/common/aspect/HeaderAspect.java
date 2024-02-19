@@ -1,8 +1,5 @@
 package com.dev.log.common.aspect;
 
-import java.beans.PropertyDescriptor;
-
-import org.apache.commons.beanutils.BeanUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
