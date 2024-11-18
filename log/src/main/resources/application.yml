@@ -8,14 +8,31 @@ spring:
       port: 18090
       enabled: true
 
+minio:
+  bucket: multipart
+  url: http://minio:9000
+  access:
+    key: B707VnyChdLoF7NGZI2K
+    secret: 7HryR2WUI9IM2B3XfW1u9qK2xsxavOuB8UoTHoLM
+
+server:
+  servlet:
+    context-path: /app
+  port: 8081
 
 logging:
   config: classpath:logback-spring.xml
-  
+
+springdoc:
+  disable-i18n: true
+  swagger-ui:
+    doc-expansion: none
+    path: /api/swagger-ui
+
 #log path
 logs:
   absolute:
-    path: C:/dev/log
+    path: /tmp/logs
   level:
     root: INFO
     com: DEBUG

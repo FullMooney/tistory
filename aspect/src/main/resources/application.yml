@@ -7,7 +7,8 @@ spring:
     livereload:
       port: 18090
       enabled: true
-
+server:
+  port: 8080
 
 logging:
   config: classpath:logback-spring.xml
@@ -15,7 +16,7 @@ logging:
 #log path
 logs:
   absolute:
-    path: /Users/mooney/Downloads/tistory/aspect
+    path: /home/mooney/app/log/tistory/aspect
   level:
     root: INFO
     com: DEBUG

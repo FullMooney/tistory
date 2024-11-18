@@ -164,7 +164,13 @@
 		    <artifactId>google-collections</artifactId>
 		    <version>${google.collections.version}</version>
 		</dependency>
-		
+		<!-- https://mvnrepository.com/artifact/io.minio/minio -->
+                <dependency>
+                  <groupId>io.minio</groupId>
+                  <artifactId>minio</artifactId>
+                  <version>8.5.13</version>
+                </dependency>
+
 		<dependency>
 		  <groupId>javax.xml</groupId>
 		  <artifactId>jaxb-api</artifactId>
@@ -307,7 +313,7 @@
 				<version>3.4.0</version>
 				<configuration>
 				  <to>
-					<image>docker.io/mooneyred/supermoon:${version}</image>
+					<image>docker.io/mooneyred/testapp:${version}</image>
 				  </to>
 				</configuration>
 			  </plugin>
